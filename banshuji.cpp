@@ -6,21 +6,32 @@
  ************************************************************************/
 
 #include<iostream>
+#include<cmath>
+int id=0;
+int a[1000];
+
 using namespace std;
 
-int set(int n){
-    int cnt =1;
-    if(n>=2){
-        for(int i=1;i<=n/2;i++){
-            cnt=cnt+set(i);
+void set(int n,int m,int j){
+    for(int i=1;i<=n/2;i++){
+        a[id+1]=m*i+a[j];
+        id=id+1;
+        if(i/2>0){
+            set(i,m*10,id);
         }
     }
-    return cnt;
 }
 
 int main(){
     int s;
     cout<<"please input a number:";
-    cin>>s;
-    cout<<set(s)<<endl;
+    cin>>a[0];
+    s=log10(a[0]);
+    set(a[0],pow(10,s+1),0);
+    cout<<"半数集为：";
+    for(int i=0;i<id+1;i++){
+        cout<<a[i]<<" ";
+    }
+    cout<<endl;
+    return 0;
 }
