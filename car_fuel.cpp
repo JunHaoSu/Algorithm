@@ -40,6 +40,7 @@ int main(){
         x.push_back(k);
     }
     result=fuel(x,n);
+    if(result >=0)
     cout<<"最少加油次数："<<result<<endl;
     return 0;
 }
