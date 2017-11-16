@@ -10,16 +10,15 @@
  * 将这个数组循环一遍以后，最后那个最大的数一定就是最大子段和。
 */
 #include<iostream>
+#include<fstream>
+#include<cstring>
 using namespace std;
 
-
-int a[6]={-2,11,-4,13,-5,-2};
-
-int MaxSum(int n,int *a){
+int MaxSum(int n,int a[3]){//最大子段和
     int sum=0;
-    for(int i=1;i<=n;i++){
+    for(int i=0;i<n;i++){
         int thissum=0;
-        for(int j=i;j<=n;j++){
+        for(int j=i;j<n;j++){
             thissum+=a[j];
             if(thissum>sum){
                 sum=thissum;
@@ -29,7 +28,60 @@ int MaxSum(int n,int *a){
     return sum;
 }
 
-int main(){
-    int re=MaxSum(6,a);
-    cout<<re;
+int MaxSum2(int m,int n,int b[3][3]){//最大矩阵和
+    int sum=0;
+    int c[3];
+    memset(c,0,sizeof(c));
+    int i,k,j;
+    for(i=0;i<m;i++){
+       memset(c,0,sizeof(c));
+        for(k=i;k<m;k++){
+            for(j=0;j<n;j++)
+                c[j]+=b[k][j];
+            int max=MaxSum(n,c);
+            if(max>sum)sum=max;
+        }
+    }
+    return sum;
 }
+
+int MaxSum3(int m,int n,int x,int a[3][3][3]){//最大长方体
+    int sum=0;
+    int b[3][3];
+    int i,j,k,l;
+    memset(b,0,sizeof(b));
+    for(i=0;i<m;i++){
+        memset(b,0,sizeof(b));
+        for(j=i;j<m;j++){
+            for(k=0;k<n;k++)
+                for(l=0;l<x;l++)
+                    b[k][l]+=a[j][k][l];
+                int max=MaxSum2(n,x,b);
+                if(max>sum)
+                    sum=max;
+        }
+    }
+    return sum;
+}
+
+int main(){
+    ifstream fin;
+    ofstream fout;
+    int m,n,p;
+    fin.open("MaxSum_input.txt");
+    fout.open("MaxSum_output.txt");
+    fin>>m>>n>>p;
+    int i,j,k;
+    int a[3][3][3];
+    for(i=0;i<m;i++)
+        for(j=0;j<n;j++)
+            for(k=0;k<p;k++){
+                fin>>a[i][j][k];
+                }
+    int result=MaxSum3(m,n,p,a);
+    fout<<result;
+    fin.close();
+    fout.close();
+    return 0;
+}
+
