@@ -47,6 +47,7 @@ int main(){
             list[i].push_back(rent);
         }
     }
+    fin.close();
     fout<<R(n)<<endl;
     return 0;  
     }  
