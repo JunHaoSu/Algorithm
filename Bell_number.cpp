@@ -20,13 +20,18 @@ int Stirling(int m,int n){
 }
 
 int main(){
-    int n,i;
+    int n,i,m;
     int sum=0;
+    int stir=0;
     cout<<"输入n:";
     cin>>n;
     for(i=1;i<=n;i++){
         sum+=Stirling(i,n);
     }
-    cout<<sum<<endl;
+    cout<<"Bell:"<<sum<<endl;
+    cout<<"输入m,n:";
+    cin>>n>>m;
+    stir=Stirling(m,n);
+    cout<<"Stirling:"<<stir<<endl;
     return 0;
 }
